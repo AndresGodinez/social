@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <div class="card bg-light">
+                <div class="card bg-light mb-3 shadow-sm">
                     <status-form></status-form>
                 </div>
                 <status-list></status-list>
