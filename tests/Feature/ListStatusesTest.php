@@ -34,16 +34,16 @@ class ListStatusesTest extends TestCase
         $response->assertSuccessful();
 
         $response->assertJson([
-            'total' => 4
+            'meta' => ['total' => 4]
         ]);
 
         $this->assertEquals(
-            $response->json('data.0.id'),
-            $status4->id
+            $response->json('data.0.body'),
+            $status4->body
         );
 
         $response->assertJsonStructure([
-            'total', 'first_page_url', 'last_page_url'
+            'links' => ['prev', 'next']
         ]);
     }
 }

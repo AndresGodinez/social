@@ -25,7 +25,7 @@
                 let response = await axios.post('statuses', {
                     body: this.body
                 });
-                EventBus.$emit('status-created', response.data);
+                EventBus.$emit('status-created', response.data.data);
                 this.body = '';
             }
         }

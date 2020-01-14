@@ -7,8 +7,8 @@
                          src="https://f0.pngfuel.com/png/592/884/black-and-white-cartoon-character-programmer-computer-programming-computer-software-computer-icons-programming-language-avatar-png-clip-art.png"
                          alt="">
                     <div class="">
-                        <h5 class="mb-1">Andrés Godínez</h5>
-                        <div class="small text-muted">hace una hora</div>
+                        <h5 class="mb-1" v-text="status.user_name"></h5>
+                        <div class="small text-muted" v-text="status.ago"></div>
                     </div>
                 </div>
 
