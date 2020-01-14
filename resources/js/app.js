@@ -18,7 +18,10 @@ import Vue from 'vue';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+window.EventBus = new Vue();
+
 Vue.component('status-form', require('./components/statusForm.vue').default);
+Vue.component('status-list', require('./components/statusesList.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
