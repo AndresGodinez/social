@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class StatusesController extends Controller
 {
+    public function index()
+    {
+        $statuses = Status::latest()->paginate();
+
+        return response()->json($statuses);
+    }
+
     public function store()
     {
         $status = Status::create([
@@ -16,4 +23,6 @@ class StatusesController extends Controller
 
         return response()->json($status);
     }
+
+
 }
