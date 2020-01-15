@@ -23,6 +23,10 @@ window.EventBus = new Vue();
 Vue.component('status-form', require('./components/statusForm.vue').default);
 Vue.component('status-list', require('./components/statusesList.vue').default);
 
+import auth from './mixins/auth'
+
+Vue.mixin(auth);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
