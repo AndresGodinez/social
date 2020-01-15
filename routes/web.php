@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Auth::routes();
+Route::auth();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 //statuses
 Route::post('statuses', 'StatusesController@store')
     ->name('statuses.store')
@@ -23,9 +29,6 @@ Route::post('statuses', 'StatusesController@store')
 Route::get('statuses', 'StatusesController@index')
     ->name('statuses.index');
 
-Route::auth();
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/statuses/{status}/likes', 'StatusLikesController@store')
+    ->name('statuses.likes.store')
+    ->middleware('auth');
