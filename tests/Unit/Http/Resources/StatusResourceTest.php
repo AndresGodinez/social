@@ -14,17 +14,39 @@ class StatusResourceTest extends TestCase
     /** @test */
     function a_status_resource_must_be_have_necessary_fields()
     {
+
         $status = factory(Status::class)->create();
 
         $statusResource = StatusResource::make($status)->resolve();
 
-        $this->assertEquals($status->body, $statusResource['body']);
+        $this->assertEquals(
+            $status->id,
+            $statusResource['id']
+        );
 
-        $this->assertEquals($status->user->name, $statusResource['user_name']);
+        $this->assertEquals(
+            $status->body,
+            $statusResource['body']
+        );
 
-        $this->assertEquals('https://f0.pngfuel.com/png/592/884/black-and-white-cartoon-character-programmer-computer-programming-computer-software-computer-icons-programming-language-avatar-png-clip-art.png', $statusResource['user_avatar']);
+        $this->assertEquals(
+            $status->user->name,
+            $statusResource['user_name']
+        );
 
-        $this->assertEquals($status->created_at->diffForHumans(), $statusResource['ago']);
+        $this->assertEquals(
+            'https://f0.pngfuel.com/png/592/884/black-and-white-cartoon-character-programmer-computer-programming-computer-software-computer-icons-programming-language-avatar-png-clip-art.png',
+            $statusResource['user_avatar']);
+
+        $this->assertEquals(
+            $status->created_at->diffForHumans(),
+            $statusResource['ago']
+        );
+
+        $this->assertEquals(
+            false,
+            $statusResource['is_liked']
+        );
 
     }
 }

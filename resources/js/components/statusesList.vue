@@ -13,6 +13,8 @@
                 </div>
 
                 <p class="card-text text-secondary" v-text="status.body"></p>
+                <button v-if="status.is_liked">TE GUSTA</button>
+                <button v-else dusk="like-btn" @click="like(status)">ME GUSTA</button>
             </div>
         </div>
     </div>
@@ -35,8 +37,18 @@
             async getStatuses() {
                 let response = await axios.get('/statuses');
                 this.statuses = response.data.data
+            },
+            like(status) {
+                axios.post(`/statuses/${status.id}/likes`)
+                    .then(res => {
+                        status.is_liked = true
+                    })
+                .catch(err=>{
+                    console.error(err.response.data);
+                });
             }
-        }
+        },
+
     }
 </script>
 
