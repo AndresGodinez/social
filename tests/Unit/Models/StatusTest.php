@@ -8,6 +8,7 @@ use App\User;
 use Tests\TestCase;
 use App\Models\Status;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use function factory;
 
 class StatusTest extends TestCase
 {
@@ -31,7 +32,7 @@ class StatusTest extends TestCase
 
         $this->assertInstanceOf(Like::class, $status->likes()->first());
     }
-    
+
     /** @test */
     function a_status_can_be_liked_and_unlike()
     {
@@ -81,5 +82,23 @@ class StatusTest extends TestCase
             $status->isLiked()
         );
 
+    }
+
+    /** @test */
+    function a_status_knows_how_many_like_has()
+    {
+        $status = factory(Status::class)->create();
+
+        $this->assertEquals(
+            0,
+            $status->likesCount()
+        );
+
+        factory(Like::class)->times(2)->create(['status_id' => $status->id]);
+
+        $this->assertEquals(
+            2,
+            $status->likesCount()
+        );
     }
 }

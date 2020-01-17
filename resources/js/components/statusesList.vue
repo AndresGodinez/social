@@ -14,14 +14,14 @@
 
                 <p class="card-text text-secondary" v-text="status.body"></p>
             </div>
-            <div class="card-footer">
+            <div class="card-footer p-2 align-items-center card-footer d-flex justify-content-between">
 
                 <button v-if="status.is_liked"
                         @click="unlike(status)"
                         class="btn btn-link"
                         dusk="unlike-btn"
                 ><strong>
-                    <i class="fas fa-thumbs-up"></i>
+                    <i class="fas fa-thumbs-up text-primary"></i>
                     TE GUSTA</strong></button>
 
                 <button v-else
@@ -29,8 +29,13 @@
                         class="btn btn-link"
                         dusk="like-btn"
                 >
-                    <i class="far fa-thumbs-up"></i>
-                    ME GUSTA</button>
+                    <i class="far fa-thumbs-up text-primary"></i>
+                    ME GUSTA
+                </button>
+                <div>
+                    <i class="far fa-thumbs-up text-secondary"></i>
+                    <span dusk="likes-count">{{ status.likes_count }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -57,18 +62,20 @@
             like(status) {
                 axios.post(`/statuses/${status.id}/likes`)
                     .then(res => {
-                        status.is_liked = true
+                        status.is_liked = true;
+                        status.likes_count++;
                     })
-                .catch(err=>{
-                    console.error(err.response.data);
-                });
+                    .catch(err => {
+                        console.error(err.response.data);
+                    });
             },
-            unlike(status){
+            unlike(status) {
                 axios.delete(`/statuses/${status.id}/likes`)
                     .then(res => {
-                        status.is_liked = false
+                        status.is_liked = false;
+                        status.likes_count --;
                     })
-                    .catch(err=>{
+                    .catch(err => {
                         console.error(err.response.data);
                     });
             },

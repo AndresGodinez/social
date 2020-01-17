@@ -20,7 +20,8 @@ class StatusResource extends JsonResource
            'user_name' => $this->resource->user->name,
            'user_avatar' => 'https://f0.pngfuel.com/png/592/884/black-and-white-cartoon-character-programmer-computer-programming-computer-software-computer-icons-programming-language-avatar-png-clip-art.png',
            'ago' => $this->created_at->diffForHumans(),
-           'is_liked' => $this->isLiked()
+           'is_liked' => $this->isLiked(),
+           'likes_count' => $this->likesCount()
        ];
     }
 }
