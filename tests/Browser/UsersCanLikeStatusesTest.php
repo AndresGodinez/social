@@ -15,6 +15,24 @@ class UsersCanLikeStatusesTest extends DuskTestCase
      * @test
      * @throws \Throwable
      */
+    public function guest_cannot_like_status()
+    {
+        $status = factory(Status::class)->create();
+
+        $this->browse(function (Browser $browser) use ($status) {
+            $browser->visit('/')
+                ->waitForText($status->body)
+                ->assertSee($status->body)
+                ->click('@like-btn')
+                ->assertPathIs('/login')
+            ;
+        });
+    }
+
+    /**
+     * @test
+     * @throws \Throwable
+     */
     public function user_can_like_and_unlike_statuses()
     {
         $user = $this->getDefaultUser();
