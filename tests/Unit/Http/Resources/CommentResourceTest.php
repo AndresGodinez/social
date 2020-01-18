@@ -2,11 +2,9 @@
 
 namespace Tests\Unit\Http\Resources;
 
-use App\Http\Resources\CommentResource;
-use App\Http\Resources\StatusResource;
-use App\Models\Comment;
 use Tests\TestCase;
-use App\Models\Status;
+use App\Models\Comment;
+use App\Http\Resources\CommentResource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentResourceTest extends TestCase
@@ -16,7 +14,6 @@ class CommentResourceTest extends TestCase
     /** @test */
     function a_comment_resource_must_be_have_necessary_fields()
     {
-
         $comment = factory(Comment::class)->create();
 
         $commentResource = CommentResource::make($comment)->resolve();
@@ -25,7 +22,5 @@ class CommentResourceTest extends TestCase
             $comment->body,
             $commentResource['body']
         );
-
-
     }
 }
