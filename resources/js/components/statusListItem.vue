@@ -13,6 +13,11 @@
 
             <p class="card-text text-secondary" v-text="status.body"></p>
         </div>
+        <div class="card-footer">
+            <div v-for="comment in comments">
+                {{comment}}
+            </div>
+        </div>
         <div class="card-footer p-2 align-items-center card-footer d-flex justify-content-between">
 
             <like-btn :status="status"></like-btn>
@@ -20,26 +25,42 @@
                 <i class="far fa-thumbs-up text-secondary"></i>
                 <span dusk="likes-count">{{ status.likes_count }}</span>
             </div>
+            <form @submit.prevent="addComment">
+                <textarea dusk="comment" v-model="newComment"></textarea>
+                <button dusk="comment-btn">Enviar</button>
+            </form>
         </div>
+
     </div>
 </template>
 
 <script>
     import LikeBtn from "./LikeBtn";
+
     export default {
-        data(){
-            return{
+        data() {
+            return {
+                newComment: '',
+                comments: []
             }
         },
         props: {
-            status:{
+            status: {
                 type: Object,
                 required: true
             },
         },
-
-        components:{
-            LikeBtn
+        components: {LikeBtn},
+        methods: {
+            addComment() {
+                axios.post(`/statuses/${this.status.id}/comment`, {
+                    'body': this.newComment
+                })
+                .then(res => {
+                    this.comments.push(res.data.data.body);
+                    this.newComment = '';
+                })
+            }
         }
     }
 </script>
